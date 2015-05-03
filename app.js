@@ -15,17 +15,21 @@ request(URL, function (error, response, body) {
     if (!error && response.statusCode == 200) {
     
       currentTrack = JSON.parse(body)['recenttracks']['track'][0];
-      console.log(currentTrack);
+      //console.log(currentTrack);
      
       searchURL += encodeURIComponent(
                       currentTrack['artist']['#text'] + ' ' +
                       currentTrack['name'] + ' ' +
                       currentTrack['album']['#text']);
 
-      console.log(searchURL);
+      //console.log(searchURL);
 
       request(searchURL, function (error, response, body) {
-        console.log(body);
+        spotifyTrack = JSON.parse(body);
+
+        spotifyTrack = spotifyTrack['tracks']['items'][0];
+
+        console.log(spotifyTrack);
       });
 
     } else {
